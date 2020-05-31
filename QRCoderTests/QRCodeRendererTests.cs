@@ -11,7 +11,7 @@ namespace QRCoderTests
 
     public class QRCodeRendererTests
     {
-#if !NETCOREAPP1_1
+#if NETCOREAPP1_1
         [Fact]
         [Category("QRRenderer/QRCode")]
         public void can_create_standard_qrcode_graphic()

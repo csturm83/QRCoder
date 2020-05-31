@@ -1,6 +1,4 @@
-﻿#if NETFRAMEWORK || NETSTANDARD2_0
-using System;
-using System.Drawing;
+﻿using System;
 using System.Text;
 using static QRCoder.QRCodeGenerator;
 using static QRCoder.SvgQRCode;
@@ -20,7 +18,7 @@ namespace QRCoder
             var viewBox = new Size(pixelsPerModule*this.QrCodeData.ModuleMatrix.Count, pixelsPerModule * this.QrCodeData.ModuleMatrix.Count);
             return this.GetGraphic(viewBox, Color.Black, Color.White);
         }
-        public string GetGraphic(int pixelsPerModule, Color darkColor, Color lightColor, bool drawQuietZones = true, SizingMode sizingMode = SizingMode.WidthHeightAttribute)
+        private string GetGraphic(int pixelsPerModule, Color darkColor, Color lightColor, bool drawQuietZones = true, SizingMode sizingMode = SizingMode.WidthHeightAttribute)
         {
             var viewBox = new Size(pixelsPerModule * this.QrCodeData.ModuleMatrix.Count, pixelsPerModule * this.QrCodeData.ModuleMatrix.Count);
             return this.GetGraphic(viewBox, darkColor, lightColor, drawQuietZones, sizingMode);
@@ -32,17 +30,17 @@ namespace QRCoder
             return this.GetGraphic(viewBox, darkColorHex, lightColorHex, drawQuietZones, sizingMode);
         }
 
-        public string GetGraphic(Size viewBox, bool drawQuietZones = true, SizingMode sizingMode = SizingMode.WidthHeightAttribute)
+        private string GetGraphic(Size viewBox, bool drawQuietZones = true, SizingMode sizingMode = SizingMode.WidthHeightAttribute)
         {
             return this.GetGraphic(viewBox, Color.Black, Color.White, drawQuietZones, sizingMode);
         }
 
-        public string GetGraphic(Size viewBox, Color darkColor, Color lightColor, bool drawQuietZones = true, SizingMode sizingMode = SizingMode.WidthHeightAttribute)
+        private string GetGraphic(Size viewBox, Color darkColor, Color lightColor, bool drawQuietZones = true, SizingMode sizingMode = SizingMode.WidthHeightAttribute)
         {
-            return this.GetGraphic(viewBox, ColorTranslator.ToHtml(Color.FromArgb(darkColor.ToArgb())), ColorTranslator.ToHtml(Color.FromArgb(lightColor.ToArgb())), drawQuietZones, sizingMode);
+            return this.GetGraphic(viewBox, ColorTranslator.ToHtml(darkColor), ColorTranslator.ToHtml(lightColor), drawQuietZones, sizingMode);
         }
 
-        public string GetGraphic(Size viewBox, string darkColorHex, string lightColorHex, bool drawQuietZones = true, SizingMode sizingMode = SizingMode.WidthHeightAttribute)
+        private string GetGraphic(Size viewBox, string darkColorHex, string lightColorHex, bool drawQuietZones = true, SizingMode sizingMode = SizingMode.WidthHeightAttribute)
         {
             var offset = drawQuietZones ? 0 : 4;
             var drawableModulesCount = this.QrCodeData.ModuleMatrix.Count - (drawQuietZones ? 0 : offset * 2);
@@ -91,5 +89,3 @@ namespace QRCoder
         }
     }
 }
-
-#endif

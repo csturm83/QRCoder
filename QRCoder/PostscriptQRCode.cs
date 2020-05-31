@@ -1,6 +1,4 @@
-﻿#if NETFRAMEWORK || NETSTANDARD2_0
-using System;
-using System.Drawing;
+﻿using System;
 using static QRCoder.QRCodeGenerator;
 
 namespace QRCoder
@@ -18,7 +16,7 @@ namespace QRCoder
             var viewBox = new Size(pointsPerModule * this.QrCodeData.ModuleMatrix.Count, pointsPerModule * this.QrCodeData.ModuleMatrix.Count);
             return this.GetGraphic(viewBox, Color.Black, Color.White, true, epsFormat);
         }
-        public string GetGraphic(int pointsPerModule, Color darkColor, Color lightColor, bool drawQuietZones = true, bool epsFormat = false)
+        private string GetGraphic(int pointsPerModule, Color darkColor, Color lightColor, bool drawQuietZones = true, bool epsFormat = false)
         {
             var viewBox = new Size(pointsPerModule * this.QrCodeData.ModuleMatrix.Count, pointsPerModule * this.QrCodeData.ModuleMatrix.Count);
             return this.GetGraphic(viewBox, darkColor, lightColor, drawQuietZones, epsFormat);
@@ -30,17 +28,17 @@ namespace QRCoder
             return this.GetGraphic(viewBox, darkColorHex, lightColorHex, drawQuietZones, epsFormat);
         }
 
-        public string GetGraphic(Size viewBox, bool drawQuietZones = true, bool epsFormat = false)
+        private string GetGraphic(Size viewBox, bool drawQuietZones = true, bool epsFormat = false)
         {
             return this.GetGraphic(viewBox, Color.Black, Color.White, drawQuietZones, epsFormat);
         }
 
-        public string GetGraphic(Size viewBox, string darkColorHex, string lightColorHex, bool drawQuietZones = true, bool epsFormat = false)
+        private string GetGraphic(Size viewBox, string darkColorHex, string lightColorHex, bool drawQuietZones = true, bool epsFormat = false)
         {
             return this.GetGraphic(viewBox, ColorTranslator.FromHtml(darkColorHex), ColorTranslator.FromHtml(lightColorHex), drawQuietZones, epsFormat);
         }
 
-        public string GetGraphic(Size viewBox, Color darkColor, Color lightColor, bool drawQuietZones = true, bool epsFormat = false)
+        private string GetGraphic(Size viewBox, Color darkColor, Color lightColor, bool drawQuietZones = true, bool epsFormat = false)
         {
             var offset = drawQuietZones ? 0 : 4;
             var drawableModulesCount = this.QrCodeData.ModuleMatrix.Count - (drawQuietZones ? 0 : offset * 2);
@@ -150,5 +148,3 @@ showpage
         }
     }
 }
-
-#endif
