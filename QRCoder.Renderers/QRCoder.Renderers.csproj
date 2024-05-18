@@ -1,18 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <ItemGroup>
+    <ProjectReference Include="..\QRCoder.Core\QRCoder.Core.csproj" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1;net8.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="LegacyPayloads\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\QRCoder.Core\QRCoder.Core.csproj" />
-  </ItemGroup>
 
 </Project>
