@@ -2,7 +2,7 @@
 
 public class WhatsAppMessage : Payload
 {
-    public override string ToString()
+    protected override string ToPayloadString()
     {
         throw new NotImplementedException();
     }
