@@ -13,9 +13,9 @@ public class QRCodeSettings
         RequestedVersion = AutoDetectVersion
     };
 
-    QRCodeGenerator.ECCLevel EccLevel { get; set; }
-    bool ForceUtf8 { get; set; }
-    bool Utf8BOM { get; set; }
-    QRCodeGenerator.EciMode EciMode { get; set; }
-    int RequestedVersion { get; set; }
+    public QRCodeGenerator.ECCLevel EccLevel { get; set; }
+    public bool ForceUtf8 { get; set; }
+    public bool Utf8BOM { get; set; }
+    public QRCodeGenerator.EciMode EciMode { get; set; }
+    public int RequestedVersion { get; set; }
 }

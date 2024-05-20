@@ -8,16 +8,29 @@ public class QRCode
 {
     public static QRCodeData Create(Payload payload)
     {
+        // Use payload.DefaultSettings
         throw new NotImplementedException();
     }
 
     public static QRCodeData Create(Payload payload, QRCodeGenerator.ECCLevel eccLevel)
     {
+        // Start with payload.DefaultSettings, update eccLevel, check with payload.IsPayloadSpecificationMet
+        QRCodeSettings settings = payload.DefaultSettings;
+        settings.EccLevel = eccLevel;
+        if (!payload.IsPayloadSpecificationMet(settings))
+        {
+            // throw Exception
+        }
         throw new NotImplementedException();
     }
 
     public static QRCodeData Create(Payload payload, QRCodeSettings settings)
     {
+        // Start with input parameter settings, check with payload.IsPayloadSpecificationMet
+        if (!payload.IsPayloadSpecificationMet(settings))
+        {
+            // throw Exception
+        } 
         throw new NotImplementedException();
     }
 
@@ -25,6 +38,9 @@ public class QRCode
     {
         throw new NotImplementedException();
     }
+
+    // TODO: potentially add Create overload with single string plainText parameter that uses QRCodeSettings.PayloadDefault ??
+    // TODO: If so, maybe rename QRCodeSettings.PayloadDefault to QRCodeSettings.Default or QRCodeSettings.DefaultSettings ??
 
     // private static QRCodeData Create(BitArray bitArray, ECCLevel eccLevel, int version)
     // {
