@@ -3,7 +3,7 @@ using System.IO.Compression;
 
 namespace QRCoder.Renderers;
 
-public class PngByteRenderer : Renderer<PngByteRendererSettings, byte[]>
+public class PngByteRenderer : Renderer<PngByteRenderer, PngByteRendererSettings, byte[]>
 {
     public PngByteRenderer()
     {
@@ -29,7 +29,7 @@ public class PngByteRenderer : Renderer<PngByteRendererSettings, byte[]>
 
     public static byte[] Render(Payload payload, QRCodeSettings qrSettings, PngByteRendererSettings settings)
     {
-        return Create<PngByteRenderer>(payload, qrSettings).Render(settings);
+        return Create(payload, qrSettings).Render(settings);
     }
 
     /// <summary>

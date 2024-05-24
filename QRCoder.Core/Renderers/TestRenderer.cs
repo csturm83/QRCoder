@@ -2,7 +2,7 @@ using QRCoder;
 using QRCoder.Payloads;
 using QRCoder.Renderers;
 
-internal class TestRenderer : Renderer<TestRenderSettings, int>
+internal class TestRenderer : Renderer<TestRenderer, TestRenderSettings, byte[]>
 {
     public TestRenderer()
     {
@@ -12,15 +12,15 @@ internal class TestRenderer : Renderer<TestRenderSettings, int>
     {
     }
 
-    public override int Render(TestRenderSettings settings)
+    public override byte[] Render(TestRenderSettings settings)
     {
         throw new NotImplementedException();
     }
 
     // TODO: other variations of overloads that call into the static Create<> method
-    public static int Render(Payload payload, QRCodeSettings qrSettings, TestRenderSettings settings)
+    public static byte[] Render(Payload payload, QRCodeSettings qrSettings, TestRenderSettings settings)
     {
-        return Create<TestRenderer>(payload, qrSettings).Render(settings);
+        return Create(payload, qrSettings).Render(settings);
     }
 
     private static void SampleTest()
@@ -30,16 +30,16 @@ internal class TestRenderer : Renderer<TestRenderSettings, int>
         TestRenderSettings renderSettings = null!;
 
         // three-step rendering
-        int rendered3 = QRCode.Create(payload, qrSettings)
+        byte[] rendered3 = QRCode.Create(payload, qrSettings)
             .RenderAs<TestRenderer>()
             .Render(renderSettings);
 
         // two-step rendering
-        int rendered2 = TestRenderer.Create<TestRenderer>(payload, qrSettings)
+        byte[] rendered2 = TestRenderer.Create(payload, qrSettings)
             .Render(renderSettings);
 
         // one-shot rendering
-        int rendered1 = TestRenderer.Render(payload, qrSettings, renderSettings);
+        byte[] rendered1 = TestRenderer.Render(payload, qrSettings, renderSettings);
     }
 }
 
