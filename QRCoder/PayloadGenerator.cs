@@ -15,7 +15,7 @@ namespace QRCoder
         public abstract class Payload
         {
             public virtual int Version { get { return -1; } }
-            public virtual QRCodeGenerator.ECCLevel EccLevel { get { return QRCodeGenerator.ECCLevel.M; } }
+            public virtual QRCodeGenerator.ECCLevel EccLevel { get { return QRCodeGenerator.ECCLevel.Default; } }
             public virtual QRCodeGenerator.EciMode EciMode { get { return QRCodeGenerator.EciMode.Default; } }
             public abstract override string ToString();
         }
@@ -711,6 +711,9 @@ namespace QRCoder
             private readonly Reference reference;
             private readonly AdditionalInformation additionalInformation;
 
+            public override QRCodeGenerator.ECCLevel EccLevel { get { return QRCodeGenerator.ECCLevel.M; } }
+            public override QRCodeGenerator.EciMode EciMode { get { return QRCodeGenerator.EciMode.Utf8; } }
+
             /// <summary>
             /// Generates the payload for a SwissQrCode v2.0. (Don't forget to use ECC-Level=M, EncodingMode=UTF-8 and to set the Swiss flag icon to the final QR code.)
             /// </summary>
@@ -1198,6 +1201,7 @@ namespace QRCoder
             private readonly GirocodeEncoding encoding;
             private readonly TypeOfRemittance typeOfRemittance;
 
+            public override QRCodeGenerator.ECCLevel EccLevel { get { return QRCodeGenerator.ECCLevel.M; } }
 
             /// <summary>
             /// Generates the payload for a Girocode (QR-Code with credit transfer information).
@@ -2030,7 +2034,7 @@ namespace QRCoder
 
             private void ProcessCommonFields(StringBuilder sb)
             {
-                if (String40Methods.IsNullOrWhiteSpace(Secret))
+                if (Secret.IsNullOrWhiteSpace())
                 {
                     throw new Exception("Secret must be a filled out base32 encoded string");
                 }
@@ -2039,7 +2043,7 @@ namespace QRCoder
                 string escapedLabel = null;
                 string label = null;
 
-                if (!String40Methods.IsNullOrWhiteSpace(Issuer))
+                if (!Issuer.IsNullOrWhiteSpace())
                 {
                     if (Issuer.Contains(":"))
                     {
@@ -2048,7 +2052,7 @@ namespace QRCoder
                     escapedIssuer = Uri.EscapeDataString(Issuer);
                 }
 
-                if (!String40Methods.IsNullOrWhiteSpace(Label))
+                if (!Label.IsNullOrWhiteSpace())
                 {
                     if (Label.Contains(":"))
                     {

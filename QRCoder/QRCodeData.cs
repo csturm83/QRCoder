@@ -1,14 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
+using System.IO.Compression;
 
 namespace QRCoder
 {
-    using QRCoder.Framework4._0Methods;
-    using System;
-    using System.IO;
-    using System.IO.Compression;
-
     public class QRCodeData : IDisposable
     {
         public List<BitArray> ModuleMatrix { get; set; }
@@ -17,7 +14,16 @@ namespace QRCoder
         {
             this.Version = version;
             var size = ModulesPerSideFromVersion(version);
-            this.ModuleMatrix = new List<BitArray>();
+            this.ModuleMatrix = new List<BitArray>(size);
+            for (var i = 0; i < size; i++)
+                this.ModuleMatrix.Add(new BitArray(size));
+        }
+
+        public QRCodeData(int version, bool addPadding)
+        {
+            this.Version = version;
+            var size = ModulesPerSideFromVersion(version) + (addPadding ? 8 : 0);
+            this.ModuleMatrix = new List<BitArray>(size);
             for (var i = 0; i < size; i++)
                 this.ModuleMatrix.Add(new BitArray(size));
         }
@@ -39,7 +45,7 @@ namespace QRCoder
                     {
                         using (var dstream = new DeflateStream(input, CompressionMode.Decompress))
                         {
-                            Stream4Methods.CopyTo(dstream, output);
+                            dstream.CopyTo(output);
                         }
                         bytes = new List<byte>(output.ToArray());
                     }
@@ -53,7 +59,7 @@ namespace QRCoder
                     {
                         using (var dstream = new GZipStream(input, CompressionMode.Decompress))
                         {
-                            Stream4Methods.CopyTo(dstream, output);
+                            dstream.CopyTo(output);
                         }
                         bytes = new List<byte>(output.ToArray());
                     }
