@@ -12,6 +12,12 @@ public abstract class Renderer<TRenderer, TRenderSettings, T> : IRenderer<TRende
         return QRCode.Create(payload, settings)
             .RenderAs<TRenderer>();
     }
+
+    public static T Render(Payload payload, QRCodeSettings qrSettings, TRenderSettings settings)
+    {
+        return Create(payload, qrSettings).Render(settings);
+    }
+
     protected QRCodeData QrCodeData { get; set; }
 
     protected Renderer()
