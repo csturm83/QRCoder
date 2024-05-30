@@ -27,11 +27,6 @@ public class PngByteRenderer : Renderer<PngByteRenderer, PngByteRendererSettings
         }
     }
 
-    public static byte[] Render(Payload payload, QRCodeSettings qrSettings, PngByteRendererSettings settings)
-    {
-        return Create(payload, qrSettings).Render(settings);
-    }
-
     /// <summary>
     /// Creates a bitmap where each pixel is represented by a single bit, dark = 0 and light = 1.
     /// </summary>
